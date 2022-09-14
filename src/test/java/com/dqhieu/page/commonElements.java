@@ -1,8 +1,10 @@
 package com.dqhieu.page;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,16 +105,18 @@ public class commonElements extends PageObject {
     String currentDate= dateFormat.format(date);
 
     String message = String.format("%02d", i)+s+currentDate;
+    Serenity.setSessionVariable("message").to(message);
     messageField.waitUntilVisible().sendKeys(message);
   }
   public void showMessage(){
     showMessageButton.waitUntilVisible().click();
   }
-  public boolean verifyMessage(){
-    if (verifyMessage.waitUntilVisible().isDisplayed()) {
+  public void   verifyMessage(){
+    Assert.assertEquals(verifyMessage.getText(),Serenity.sessionVariableCalled("message"));
+//    if (verifyMessage.waitUntilVisible().isDisplayed()) {
 //      System.out.println(verifyMessage.getText());
-        logger.info("input message: " + verifyMessage.getText());
-    }
+//        logger.info("input message: " + verifyMessage.getText());
+//    }
 
     return false;
   }
@@ -133,21 +137,21 @@ public class commonElements extends PageObject {
     return false;
 
   }
-  //    public void verifySum(){
-//        int sum = 8;
-//        switch (sum){
-//            case 6:
-//                sb_inputForm.waitUntilVisible().click();
-//                radioButtonDemo.waitUntilVisible().click();
-//                break;
-//            case 8:
-//                sb_inputForm.waitUntilVisible().click();
-//                checkboxDemo.waitUntilVisible().click();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+      public void verifySum(){
+        int sum =  ;
+        switch (sum){
+            case 6:
+                sb_inputForm.waitUntilVisible().click();
+                radioButtonDemo.waitUntilVisible().click();
+                break;
+            case 8:
+                sb_inputForm.waitUntilVisible().click();
+                checkboxDemo.waitUntilVisible().click();
+                break;
+            default:
+                break;
+        }
+    }
   public void clickInputFormSubmit(){
     inputFormSubmit.waitUntilVisible().click();
   }

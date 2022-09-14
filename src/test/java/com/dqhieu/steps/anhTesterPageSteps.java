@@ -4,6 +4,7 @@ import com.dqhieu.page.commonElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.thucydides.core.environment.SystemEnvironmentVariables;
 import net.thucydides.core.pages.PageObject;
@@ -61,6 +62,7 @@ public class anhTesterPageSteps extends PageObject {
   @Then("Enter number {string} into enter a field")
   public void enterNumberAInEnterAField(String numberA) {
     this.a = numberA;
+    Serenity.setSessionVariable("aNumber").to(a);
     common.enterFirstValue(numberA);
   }
 
@@ -77,7 +79,7 @@ public class anhTesterPageSteps extends PageObject {
 
   @Then("Verify total a+b is correct")
   public void verifyTotalABIsCorrect() {
-    Assert.assertEquals(Float.parseFloat(common.getTotalValue()), Float.parseFloat(a) + Float.parseFloat(b), 0.0);
+    Assert.assertEquals(Float.parseFloat(common.getTotalValue()), Float.parseFloat(Serenity.sessionVariableCalled("aNumber")) + Float.parseFloat(b), 0.0);
   }
 
 
